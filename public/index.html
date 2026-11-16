@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kolo Circle · G$ savings pool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style type="text/tailwindcss">
+      @theme {
+        --color-background: #fffdf7;
+        --color-foreground: #1b2a21;
+        --color-muted: #f2ebdd;
+        --color-muted-foreground: #6d7a6f;
+        --color-card: #fffdf7;
+        --color-border: #e4dac6;
+        --color-ring: #17603c;
+        --color-primary: #1b2a21;
+        --color-primary-foreground: #fffdf7;
+        --color-accent: #17603c;
+        --color-accent-foreground: #f7fbf6;
+        --color-success: #17603c;
+        --color-warning: #b4690e;
+        --color-danger: #b3261e;
+        --radius-lg: 0.9rem;
+        --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
+        --font-display: Outfit, Inter, ui-sans-serif, system-ui, sans-serif;
+      }
+      @layer base {
+        body {
+          @apply bg-muted text-foreground;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-muted text-foreground antialiased">
+    <div id="root"></div>
+  </body>
+</html>
