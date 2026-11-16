@@ -1,0 +1,196 @@
+/* GoodBuild motion kit. Everything here stops under prefers-reduced-motion, and under
+   html[data-fx="off"], which GoodBuild sets when it takes a screenshot of the page. */
+
+.fx-reveal {
+  opacity: 0;
+  transform: var(--fx-from, translate3d(0, 24px, 0));
+  filter: var(--fx-blur, none);
+  transition:
+    opacity var(--fx-dur, 0.7s) cubic-bezier(0.22, 1, 0.36, 1) var(--fx-delay, 0s),
+    transform var(--fx-dur, 0.7s) cubic-bezier(0.22, 1, 0.36, 1) var(--fx-delay, 0s),
+    filter var(--fx-dur, 0.7s) cubic-bezier(0.22, 1, 0.36, 1) var(--fx-delay, 0s);
+  will-change: opacity, transform;
+}
+.fx-reveal[data-shown="true"] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+.fx-marquee {
+  display: flex;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+.fx-marquee-track {
+  display: flex;
+  flex-shrink: 0;
+  min-width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  gap: var(--fx-gap, 3rem);
+  padding-right: var(--fx-gap, 3rem);
+  animation: fx-marquee var(--fx-dur, 30s) linear infinite;
+}
+.fx-marquee[data-reverse="true"] .fx-marquee-track {
+  animation-direction: reverse;
+}
+.fx-marquee[data-pause="true"]:hover .fx-marquee-track {
+  animation-play-state: paused;
+}
+@keyframes fx-marquee {
+  to {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+.fx-gradient-text {
+  background-image: linear-gradient(90deg, var(--fx-a), var(--fx-b), var(--fx-a));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: fx-shine var(--fx-dur, 6s) linear infinite;
+}
+@keyframes fx-shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.fx-rotating {
+  display: inline-block;
+  animation: fx-rotate-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes fx-rotate-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.5em, 0);
+    filter: blur(6px);
+  }
+}
+
+.fx-aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.fx-aurora > span {
+  position: absolute;
+  width: 55%;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  filter: blur(72px);
+  opacity: var(--fx-strength, 0.35);
+  animation: fx-drift var(--fx-dur, 18s) ease-in-out infinite alternate;
+}
+.fx-aurora > span:nth-child(1) {
+  left: -12%;
+  top: -22%;
+  background: var(--fx-a);
+}
+.fx-aurora > span:nth-child(2) {
+  right: -14%;
+  top: 4%;
+  background: var(--fx-b);
+  animation-delay: -6s;
+  animation-direction: alternate-reverse;
+}
+.fx-aurora > span:nth-child(3) {
+  left: 22%;
+  bottom: -38%;
+  background: var(--fx-c);
+  animation-delay: -11s;
+}
+@keyframes fx-drift {
+  from {
+    transform: translate3d(-6%, -4%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(9%, 7%, 0) scale(1.2);
+  }
+}
+
+.fx-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 72%);
+}
+
+.fx-spotlight {
+  position: relative;
+  overflow: hidden;
+}
+.fx-spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(var(--fx-size, 320px) circle at var(--fx-x, 50%) var(--fx-y, 50%), var(--fx-glow), transparent 70%);
+}
+.fx-spotlight:hover::before,
+.fx-spotlight:focus-within::before {
+  opacity: 1;
+}
+
+.fx-tilt {
+  transform: perspective(900px) rotateX(var(--fx-rx, 0deg)) rotateY(var(--fx-ry, 0deg));
+  transition: transform 0.25s ease-out;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.fx-magnetic {
+  display: inline-block;
+  transform: translate3d(var(--fx-mx, 0px), var(--fx-my, 0px), 0);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fx-float {
+  animation: fx-float var(--fx-dur, 6s) ease-in-out infinite;
+}
+@keyframes fx-float {
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+html[data-fx="off"] .fx-reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  transition: none !important;
+}
+html[data-fx="off"] .fx-marquee-track,
+html[data-fx="off"] .fx-gradient-text,
+html[data-fx="off"] .fx-aurora > span,
+html[data-fx="off"] .fx-rotating,
+html[data-fx="off"] .fx-float {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+  .fx-marquee-track,
+  .fx-gradient-text,
+  .fx-aurora > span,
+  .fx-rotating,
+  .fx-float {
+    animation: none !important;
+  }
+  .fx-tilt,
+  .fx-magnetic {
+    transform: none !important;
+  }
+}

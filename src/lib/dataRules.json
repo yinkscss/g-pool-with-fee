@@ -1,3 +1,19 @@
 {
-  "collections": {}
+  "collections": {
+    "profiles": {
+      "create": "signed-in",
+      "read": ["anyone"],
+      "update": ["writer"],
+      "delete": ["writer"],
+      "public": ["name", "note"],
+      "fields": { "name": "string", "note": "string" }
+    },
+    "journal": {
+      "create": "signed-in",
+      "read": ["writer"],
+      "update": ["writer"],
+      "delete": ["writer"],
+      "fields": { "text": "string", "amount": "string", "date": "string" }
+    }
+  }
 }

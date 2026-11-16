@@ -1,5 +1,6 @@
 {
   "kits": [
-    "dao-vault"
+    "dao-vault",
+    "motion"
   ]
 }
